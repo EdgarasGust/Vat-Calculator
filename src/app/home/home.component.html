@@ -1,0 +1,52 @@
+<div class="container mt-5">
+  <h3>Task:</h3>
+  <p>There are a customers and a service providers.</p>
+  <ul>
+    <li>The customer can be either a physical person or a legal entity</li>
+    <li>The service provider is a legal entity</li>
+  </ul>
+  <h4>Goal:</h4>
+  <p>
+    Allow a service provider to issue an invoice to a client. Customer details,
+    service provider details and the provided services details as well as price
+    and calculated VAT are entered by the user in to the form. When user presses
+    submit button, a dialog window pops out with with the generated invoice and
+    data already filled in.
+  </p>
+  <p>VAT calculation rules:</p>
+  <ul>
+    <li>
+      When the service provider is not a VAT payer - VAT is not calculated on
+      the amount of the order.
+    </li>
+    <li>When the service provider is a VAT payer and the customer:</li>
+    <li>Outside the EU - VAT is 0%</li>
+    <li>
+      Lives in the EU, is not a VAT payer but lives in a different country from
+      the service provider. VAT x% is applied, where x is the percentage of VAT
+      applied in that country, for example: Lithuania 21% VAT
+    </li>
+    <li>
+      Lives in the EU, is a VAT payer but lives in a different country from the
+      service provider. 0% reverse charge applies.
+    </li>
+    <li>
+      When the customer and the service provider live in the same country, VAT
+      always applies
+    </li>
+  </ul>
+  <h4>Technical details:</h4>
+  <ul>
+    <li>
+      Use an API to retrieve countries list (You can find a public one online).
+    </li>
+    <li>Angular</li>
+    <li>SCSS</li>
+    <li>You can use any CSS framework or component library for the UI.</li>
+  </ul>
+  <h4>Bonus points:</h4>
+  <ul>
+    <li>Clean Code</li>
+    <li>Testing</li>
+  </ul>
+</div>
