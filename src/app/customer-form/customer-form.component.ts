@@ -1,6 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 import { CustomerFormDetailsComponent } from './customer-form-details/customer-form-details.component';
 import { CustomerData } from './interfaces/customerData';
@@ -39,12 +40,16 @@ export class CustomerFormComponent {
   constructor(
     private vatCalcService: VatCalculatorService,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   openDialog(customerData: CustomerData) {
-    this.dialog.open(CustomerFormDetailsComponent, {
-      data: { ...customerData },
+    const dialogRef = this.dialog.open(CustomerFormDetailsComponent, {
+      data: { customerData },
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate(['/home']);
     });
   }
 
@@ -71,17 +76,16 @@ export class CustomerFormComponent {
   }
 
   onSubmit() {
-    // if (
-    //   !this.customerDetails.invalid ||
-    //   !this.customerAddress.invalid ||
-    //   !this.serviceProviderDetails.invalid ||
-    //   !this.serviceProvided.invalid
-    // ) {
-    //   this.onFormDataSubmitted();
-    // } else {
-    //   console.error('Form is not valid');
-    // }
-    this.onFormDataSubmitted();
+    if (
+      !this.customerDetails.invalid ||
+      !this.customerAddress.invalid ||
+      !this.serviceProviderDetails.invalid ||
+      !this.serviceProvided.invalid
+    ) {
+      this.onFormDataSubmitted();
+    } else {
+      console.error('Form is not valid');
+    }
 
     this.customerDetails.reset();
     this.customerAddress.reset();
