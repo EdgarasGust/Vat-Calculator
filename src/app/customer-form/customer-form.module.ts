@@ -15,9 +15,10 @@ import { CustomerFormRoutingModule } from './customer-form-routing.module';
 import { CustomerFormComponent } from './customer-form.component';
 import { CustomerFormDetailsComponent } from './customer-form-details/customer-form-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CustomerFormCountryComponent } from './components/customer-form-country/customer-form-country.component';
 
 @NgModule({
-  declarations: [CustomerFormComponent, CustomerFormDetailsComponent],
+  declarations: [CustomerFormComponent, CustomerFormDetailsComponent, CustomerFormCountryComponent],
   imports: [
     CommonModule,
     CustomerFormRoutingModule,

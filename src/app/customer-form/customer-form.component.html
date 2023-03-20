@@ -1,0 +1,249 @@
+<div class="container">
+  <!-- <mat-vertical-stepper linear #stepper> -->
+  <mat-vertical-stepper #stepper>
+    <mat-step [stepControl]="customerDetails">
+      <form [formGroup]="customerDetails">
+        <ng-template matStepLabel>Customer Details</ng-template>
+        <mat-form-field appearance="fill" class="mat-form-field">
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            formControlName="name"
+            placeholder="Last name, First name"
+            required
+          />
+        </mat-form-field>
+        <div
+          class="help-block"
+          *ngIf="
+            customerDetails.controls.name.invalid &&
+            customerDetails.controls.name.touched
+          "
+        >
+          Please enter your name
+        </div>
+        <br />
+        <mat-form-field appearance="fill" class="mat-form-field">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            formControlName="email"
+            placeholder="Please enter your email address"
+            required
+            email
+          />
+        </mat-form-field>
+        <div
+          class="help-block"
+          *ngIf="
+            customerDetails.controls.email.invalid &&
+            customerDetails.controls.email.touched
+          "
+        >
+          Please enter valid email address
+        </div>
+        <br />
+        <mat-form-field appearance="fill" class="mat-form-field">
+          <mat-label>Phone Number</mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="tel"
+            placeholder="Please enter your phone number"
+          />
+        </mat-form-field>
+        <br />
+        <mat-form-field class="mat-form-field">
+          <mat-label class="small-text"
+            >Please select whether you are a physical person or a legal
+            entity</mat-label
+          >
+          <mat-select formControlName="entity" required>
+            <mat-option value="Physical person">Physical person</mat-option>
+            <mat-option value="Legal Entity">Legal Entity</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div
+          class="help-block"
+          *ngIf="
+            customerDetails.controls.entity.invalid &&
+            customerDetails.controls.entity.touched
+          "
+        >
+          Please select appropriate
+        </div>
+        <br />
+        <mat-form-field class="mat-form-field">
+          <mat-label>Are you VAT payer?</mat-label>
+          <mat-select formControlName="isClientVatPayer" required>
+            <mat-option value="true">Yes</mat-option>
+            <mat-option value="false">No</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div
+          class="help-block"
+          *ngIf="
+            customerDetails.controls.isClientVatPayer.invalid &&
+            customerDetails.controls.isClientVatPayer.touched
+          "
+        >
+          Please select appropriate
+        </div>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <!-- //////////Step 2 -->
+    <mat-step [stepControl]="customerAddress">
+      <form [formGroup]="customerAddress">
+        <ng-template matStepLabel>Customer Address</ng-template>
+
+        <app-countries-form
+          [form]="customerAddress"
+          [region]="'region'"
+          [country]="'country'"
+        ></app-countries-form>
+
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- // Step 3 -->
+    <mat-step [stepControl]="serviceProviderDetails" [editable]="true">
+      <form [formGroup]="serviceProviderDetails">
+        <ng-template matStepLabel>Service Provider details</ng-template>
+        <mat-form-field appearance="fill" class="mat-form-field">
+          <mat-label>Company Name</mat-label>
+          <input
+            matInput
+            formControlName="companyName"
+            placeholder="Company name"
+            required
+          />
+        </mat-form-field>
+        <div
+          class="help-block"
+          *ngIf="
+            serviceProviderDetails.controls.companyName.invalid &&
+            serviceProviderDetails.controls.companyName.touched
+          "
+        >
+          Please enter the company name
+        </div>
+        <app-countries-form
+          [form]="serviceProviderDetails"
+          [region]="'companyRegion'"
+          [country]="'companyCountry'"
+        ></app-countries-form>
+
+        <mat-form-field class="mat-form-field">
+          <mat-label>Is the company a VAT payer?</mat-label>
+          <mat-select formControlName="isCompanyVatPayer" required>
+            <mat-option value="true">Yes</mat-option>
+            <mat-option value="false">No</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div
+          class="help-block"
+          *ngIf="
+            serviceProviderDetails.controls.isCompanyVatPayer.invalid &&
+            serviceProviderDetails.controls.isCompanyVatPayer.touched
+          "
+        >
+          Please select appropriate
+        </div>
+
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="serviceProvided">
+      <form [formGroup]="serviceProvided">
+        <ng-template matStepLabel>Service Provider details</ng-template>
+        <mat-form-field appearance="fill" class="mat-form-field">
+          <mat-label>Service details</mat-label>
+          <input
+            matInput
+            formControlName="service"
+            placeholder="Enter the name of the service"
+            required
+          />
+        </mat-form-field>
+        <div
+          class="help-block"
+          *ngIf="
+            serviceProvided.controls.service.invalid &&
+            serviceProvided.controls.service.touched
+          "
+        >
+          Please enter the name of the service provided
+        </div>
+        <mat-form-field appearance="fill" class="mat-form-field">
+          <mat-label>Service cost</mat-label>
+          <input
+            matInput
+            type="number"
+            min="0.00"
+            max="100000.00"
+            step="0.01"
+            formControlName="price"
+            placeholder="Enter the service cost in €"
+            required
+          />
+        </mat-form-field>
+        <div
+          class="help-block"
+          *ngIf="
+            serviceProvided.controls.price.invalid &&
+            serviceProvided.controls.price.touched
+          "
+        >
+          Please enter the cost of the service
+        </div>
+        <mat-form-field appearance="fill" class="mat-form-field">
+          <mat-label>VAT</mat-label>
+          <input
+            matInput
+            type="number"
+            min="0"
+            max="100"
+            step="1"
+            formControlName="vat"
+            placeholder="Please enter the VAT of your country in %"
+            required
+          />
+        </mat-form-field>
+        <div
+          class="help-block"
+          *ngIf="
+            serviceProvided.controls.vat.invalid &&
+            serviceProvided.controls.vat.touched
+          "
+        >
+          Please enter the VAT of your country
+        </div>
+        <br />
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="onSubmit()" (click)="stepper.reset()">
+          Submit
+        </button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</div>
