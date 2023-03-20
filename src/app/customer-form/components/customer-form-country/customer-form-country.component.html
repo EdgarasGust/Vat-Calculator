@@ -1,0 +1,45 @@
+<ng-container [formGroup]="form">
+  <mat-form-field appearance="fill" class="mat-form-field">
+    <mat-label>Region</mat-label>
+    <mat-select [formControlName]="region" required>
+      <mat-option
+        *ngFor="let region of regions"
+        (click)="getCountries(region)"
+        [value]="region"
+        >{{ region }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+  <div
+    class="help-block"
+    *ngIf="form.controls[region].invalid && form.controls[region].touched"
+  >
+    Please select your region
+  </div>
+  <br />
+  <mat-form-field appearance="fill" class="mat-form-field">
+    <mat-label>Country</mat-label>
+    <ng-container *ngIf="isLoading">
+      <mat-spinner class="mat-spinner"></mat-spinner>
+    </ng-container>
+    <mat-select [formControlName]="country" required>
+      <mat-option
+        *ngFor="let country of countries$ | async; trackBy: trackByName"
+        [value]="country.name.common"
+        >{{ country.name.common }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+  <div
+    class="help-block"
+    *ngIf="form.controls[region].invalid && form.controls[country].touched"
+  >
+    Please select your region
+  </div>
+  <div
+    class="help-block"
+    *ngIf="form.controls[country].invalid && form.controls[country].touched"
+  >
+    Please select your country
+  </div>
+</ng-container>

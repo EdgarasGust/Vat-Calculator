@@ -1,0 +1,20 @@
+.help-block {
+  color: red;
+  font-size: 0.8rem;
+}
+.mat-form-field {
+  width: 100%;
+}
+.small-text {
+  font-size: 0.8rem;
+}
+.mat-spinner {
+  margin: 0 auto;
+  max-width: 15% !important;
+  max-height: 20px !important;
+}
+@media screen and (min-width: 576px) {
+  .mat-form-field {
+    width: 60%;
+  }
+}
