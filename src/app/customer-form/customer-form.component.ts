@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+
 import { CustomerFormDetailsComponent } from './customer-form-details/customer-form-details.component';
 import { CustomerData } from './interfaces/customerData';
-import { CountriesApiService } from './services/countries-api.service';
 import { VatCalculatorService } from './services/vat-calculator.service';
 
 @Component({
   selector: 'app-customer-form',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './customer-form.component.html',
   styleUrls: ['./customer-form.component.scss'],
 })
@@ -36,7 +37,6 @@ export class CustomerFormComponent {
   });
 
   constructor(
-    private countriesApiServices: CountriesApiService,
     private vatCalcService: VatCalculatorService,
     private fb: FormBuilder,
     private dialog: MatDialog

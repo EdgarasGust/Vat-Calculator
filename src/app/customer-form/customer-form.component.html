@@ -99,11 +99,11 @@
       <form [formGroup]="customerAddress">
         <ng-template matStepLabel>Customer Address</ng-template>
 
-        <app-countries-form
+        <app-customer-form-country
           [form]="customerAddress"
           [region]="'region'"
           [country]="'country'"
-        ></app-countries-form>
+        ></app-customer-form-country>
 
         <div>
           <button mat-button matStepperPrevious>Back</button>
@@ -134,11 +134,11 @@
         >
           Please enter the company name
         </div>
-        <app-countries-form
+        <app-customer-form-country
           [form]="serviceProviderDetails"
           [region]="'companyRegion'"
           [country]="'companyCountry'"
-        ></app-countries-form>
+        ></app-customer-form-country>
 
         <mat-form-field class="mat-form-field">
           <mat-label>Is the company a VAT payer?</mat-label>

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,15 +14,17 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CustomerFormRoutingModule } from './customer-form-routing.module';
 import { CustomerFormComponent } from './customer-form.component';
 import { CustomerFormDetailsComponent } from './customer-form-details/customer-form-details.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { CustomerFormCountryComponent } from './components/customer-form-country/customer-form-country.component';
 
 @NgModule({
-  declarations: [CustomerFormComponent, CustomerFormDetailsComponent, CustomerFormCountryComponent],
+  declarations: [
+    CustomerFormComponent,
+    CustomerFormDetailsComponent,
+    CustomerFormCountryComponent,
+  ],
   imports: [
     CommonModule,
     CustomerFormRoutingModule,
-    HttpClientModule,
     ReactiveFormsModule,
     LayoutModule,
     MatButtonModule,
