@@ -17,7 +17,7 @@ import { Countries } from '../interfaces/countries';
 export class CountriesApiService {
   private countriesSubject = new BehaviorSubject<Countries[]>([]);
   countries$: Observable<Countries[]> = this.countriesSubject.asObservable();
-  api: string = 'https://restcountries.com/v3.1/region';
+  api = 'https://restcountries.com/v3.1/region';
 
   constructor(private http: HttpClient) {}
 

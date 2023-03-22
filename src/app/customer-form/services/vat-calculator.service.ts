@@ -7,36 +7,42 @@ import { CustomerData } from '../interfaces/customerData';
 })
 export class VatCalculatorService {
   private updatedCustomerData: CustomerData;
+  private vat: number | undefined | null;
 
   constructor() {}
 
   calculateVat(data: CustomerData) {
-    let vat: number | null | undefined;
-
-    if (data.region !== Region.europe || !data.isCompanyVatPayer) {
-      vat = 0;
-      // 'Not Europe'
-    } else if (
+    // 'Service provider is not a VAT payer'
+    if (!data.isCompanyVatPayer) {
+      this.vat = 0;
+    }
+    // 'Not Europe'
+    else if (data.region !== Region.europe) {
+      this.vat = 0;
+    }
+    //'Lives in EU, but not a VAT payer (VAT should be paid)'
+    else if (
       data.region === Region.europe &&
       !data.isClientVatPayer &&
       data.country !== data.companyCountry
     ) {
-      vat = data.vat;
-      //'Europe VAT should be paid'
-    } else if (
+      this.vat = data.vat;
+    }
+    //'Lives in EU, is a VAT Payer, different country. 0% revers charge'
+    else if (
       data.region === Region.europe &&
       data.isClientVatPayer &&
       data.country !== data.companyCountry
     ) {
-      vat = 0;
-      //'Europe VAT Payer 0% revers charge'
-    } else {
-      vat = data.vat;
-      // 'Last option - must pay VAT'
+      this.vat = 0;
+    }
+    // 'Lives in a same country - VAT Always apply'
+    else {
+      this.vat = data.vat;
     }
 
-    if ((vat || vat === 0) && data.price) {
-      const vatCalc = (vat * data.price) / 100;
+    if ((this.vat || this.vat === 0) && data.price) {
+      const vatCalc = (this.vat * data.price) / 100;
       this.updatedCustomerData = {
         ...data,
         vatToPay: vatCalc,

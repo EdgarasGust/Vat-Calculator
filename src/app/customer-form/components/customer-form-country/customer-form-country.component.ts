@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 import { Countries, Region } from '../../interfaces/countries';
 import { CountriesApiService } from '../../services/countries-api.service';
@@ -11,7 +11,6 @@ import { CountriesApiService } from '../../services/countries-api.service';
   styleUrls: ['./customer-form-country.component.scss'],
 })
 export class CustomerFormCountryComponent {
-  protected _onDestroy$ = new Subject<void>();
   countries$: Observable<Countries[]> = this.countriesApiService.countries$;
   isLoading: boolean = false;
 
@@ -32,22 +31,18 @@ export class CustomerFormCountryComponent {
   getCountries(region: string) {
     this.isLoading = true;
     this.countriesApiService.getCountries(region).subscribe({
-      next: (x) => {
+      next: () => {
         this.isLoading = false;
       },
       // Display some error message on the screen
-      error: (err) => console.log(err),
-    }),
-      takeUntil(this._onDestroy$);
-    this.isLoading = false;
+      error: (err) => {
+        console.error(err.message);
+        this.isLoading = false;
+      },
+    });
   }
 
   trackByName(index: number, item: any) {
     return item.name;
-  }
-
-  ngOnDestroy(): void {
-    this._onDestroy$.next();
-    this._onDestroy$.complete();
   }
 }

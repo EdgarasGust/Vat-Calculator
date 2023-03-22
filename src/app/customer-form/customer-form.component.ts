@@ -1,9 +1,9 @@
-import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
-import { CustomerFormDetailsComponent } from './customer-form-details/customer-form-details.component';
+import { CustomerFormDetailsComponent } from './components/customer-form-details/customer-form-details.component';
 import { CustomerData } from './interfaces/customerData';
 import { VatCalculatorService } from './services/vat-calculator.service';
 
@@ -44,13 +44,22 @@ export class CustomerFormComponent {
     private router: Router
   ) {}
 
-  openDialog(customerData: CustomerData) {
-    const dialogRef = this.dialog.open(CustomerFormDetailsComponent, {
-      data: { customerData },
-    });
-    dialogRef.afterClosed().subscribe(() => {
-      this.router.navigate(['/home']);
-    });
+  onSubmit() {
+    if (
+      this.customerDetails.valid ||
+      this.customerAddress.valid ||
+      this.serviceProviderDetails.valid ||
+      this.serviceProvided.valid
+    ) {
+      this.onFormDataSubmitted();
+    } else {
+      // Show error message on the screen
+      console.error('Form is not valid');
+    }
+    this.customerDetails.reset();
+    this.customerAddress.reset();
+    this.serviceProviderDetails.reset();
+    this.serviceProvided.reset();
   }
 
   onFormDataSubmitted() {
@@ -70,26 +79,16 @@ export class CustomerFormComponent {
       price: this.serviceProvided.value.price,
       vat: this.serviceProvided.value.vat,
     };
-
     const updatedFormDetails = this.vatCalcService.calculateVat(formDetails);
     this.openDialog(updatedFormDetails);
   }
 
-  onSubmit() {
-    if (
-      !this.customerDetails.invalid ||
-      !this.customerAddress.invalid ||
-      !this.serviceProviderDetails.invalid ||
-      !this.serviceProvided.invalid
-    ) {
-      this.onFormDataSubmitted();
-    } else {
-      console.error('Form is not valid');
-    }
-
-    this.customerDetails.reset();
-    this.customerAddress.reset();
-    this.serviceProviderDetails.reset();
-    this.serviceProvided.reset();
+  openDialog(customerData: CustomerData) {
+    const dialogRef = this.dialog.open(CustomerFormDetailsComponent, {
+      data: customerData,
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate(['/home']);
+    });
   }
 }

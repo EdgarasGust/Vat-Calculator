@@ -93,9 +93,10 @@
         </div>
       </form>
     </mat-step>
-    <!-- //////////Step 2 -->
+
+    <!-- //Step 2 -->
     <mat-step [stepControl]="customerAddress">
-      <form [formGroup]="customerAddress">
+      <form [formGroup]="customerAddress" region="region" country="country">
         <ng-template matStepLabel>Customer Address</ng-template>
 
         <app-customer-form-country
@@ -113,7 +114,11 @@
 
     <!-- // Step 3 -->
     <mat-step [stepControl]="serviceProviderDetails" [editable]="true">
-      <form [formGroup]="serviceProviderDetails">
+      <div
+        [formGroup]="serviceProviderDetails"
+        region="region"
+        country="country"
+      >
         <ng-template matStepLabel>Service Provider details</ng-template>
         <mat-form-field appearance="fill" class="mat-form-field">
           <mat-label>Company Name</mat-label>
@@ -133,10 +138,12 @@
         >
           Please enter the company name
         </div>
+
         <app-customer-form-country
           [form]="serviceProviderDetails"
           [region]="'companyRegion'"
           [country]="'companyCountry'"
+          ngDefaultControl
         ></app-customer-form-country>
 
         <mat-form-field class="mat-form-field">
@@ -160,8 +167,10 @@
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </div>
-      </form>
+      </div>
     </mat-step>
+
+    <!-- // Step 4 -->
     <mat-step [stepControl]="serviceProvided">
       <form [formGroup]="serviceProvided">
         <ng-template matStepLabel>Service Provider details</ng-template>

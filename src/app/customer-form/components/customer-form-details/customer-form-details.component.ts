@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { CustomerData } from '../interfaces/customerData';
+import { CustomerData } from '../../interfaces/customerData';
 
 @Component({
   selector: 'app-customer-form-details',

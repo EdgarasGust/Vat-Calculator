@@ -1,16 +1,16 @@
 export interface CustomerData {
-  name: string | undefined;
-  email: string | undefined;
+  name?: string;
+  email?: string;
   tel?: number | null;
-  entity: string | undefined;
-  isClientVatPayer: boolean | undefined;
-  region: string | undefined;
-  country: string;
-  companyName: string | undefined;
-  companyRegion: string | undefined;
-  companyCountry: string | undefined;
-  isCompanyVatPayer: boolean | undefined;
-  service: string | undefined;
+  entity?: string;
+  isClientVatPayer?: boolean;
+  region?: string;
+  country?: string;
+  companyName?: string;
+  companyRegion?: string;
+  companyCountry?: string;
+  isCompanyVatPayer?: boolean;
+  service?: string | undefined;
   price?: number | null;
   vat?: number | null;
   vatToPay?: number | null;

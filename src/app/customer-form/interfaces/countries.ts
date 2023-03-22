@@ -2,7 +2,6 @@ export interface Countries {
   name: {
     common: string;
   };
-
   region: string;
 }
 

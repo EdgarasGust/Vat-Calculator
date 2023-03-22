@@ -13,7 +13,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { CustomerFormRoutingModule } from './customer-form-routing.module';
 import { CustomerFormComponent } from './customer-form.component';
-import { CustomerFormDetailsComponent } from './customer-form-details/customer-form-details.component';
+import { CustomerFormDetailsComponent } from './components/customer-form-details/customer-form-details.component';
 import { CustomerFormCountryComponent } from './components/customer-form-country/customer-form-country.component';
 
 @NgModule({
@@ -27,9 +27,9 @@ import { CustomerFormCountryComponent } from './components/customer-form-country
     CustomerFormRoutingModule,
     ReactiveFormsModule,
     LayoutModule,
+    MatStepperModule,
     MatButtonModule,
     MatInputModule,
-    MatStepperModule,
     MatFormFieldModule,
     MatSelectModule,
     MatDialogModule,
